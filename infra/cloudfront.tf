@@ -15,6 +15,11 @@ resource "aws_cloudfront_distribution" "site" {
     target_origin_id       = "s3-site-origin"
     viewer_protocol_policy = "redirect-to-https"
 
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.directory_index.arn
+    }
+
     forwarded_values {
       query_string = false
       cookies { forward = "none" }
@@ -36,6 +41,28 @@ resource "aws_cloudfront_distribution" "site" {
     response_code      = 404
     response_page_path = "/404.html"
   }
+}
+
+resource "aws_cloudfront_function" "directory_index" {
+  name    = "aws-cert-showcase-directory-index"
+  runtime = "cloudfront-js-2.0"
+  comment = "Rewrite directory URLs to Zola index files"
+  publish = true
+
+  code = <<-EOT
+    function handler(event) {
+      var request = event.request;
+      var uri = request.uri;
+
+      if (uri.endsWith('/')) {
+        request.uri = uri + 'index.html';
+      } else if (!uri.includes('.')) {
+        request.uri = uri + '/index.html';
+      }
+
+      return request;
+    }
+  EOT
 }
 
 output "cloudfront_domain_name" {
