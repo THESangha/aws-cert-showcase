@@ -23,7 +23,7 @@ resource "aws_iam_role" "github_actions_deploy" {
         StringEquals = {
           "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
         }
-        StringLike = {
+        StringLikeIgnoreCase = {
           "token.actions.githubusercontent.com:sub" = "repo:THESangha/aws-cert-showcase:*"
         }
       }
