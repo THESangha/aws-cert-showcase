@@ -25,8 +25,8 @@ resource "aws_iam_role" "github_actions_deploy" {
         }
         StringLike = {
           "token.actions.githubusercontent.com:sub" = [
-            "repo:THESangha/aws-cert-showcase:*",
-            "repo:thesangha/aws-cert-showcase:*"
+            "repo:THESangha@*/aws-cert-showcase@*:ref:refs/heads/main",
+            "repo:thesangha@*/aws-cert-showcase@*:ref:refs/heads/main"
           ]
         }
       }
