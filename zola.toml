@@ -1,0 +1,54 @@
+# The URL the site will be built for
+base_url = "https://aws.sangharshjadhav.com"
+title = "Sangharsh Jadhav"
+description = "A blog about my journey to AWS certification"
+theme = "duckquill"
+default_language = "en"
+
+taxonomies = [
+    { name = "tags", feed = true },
+    { name = "categories" },
+]
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+[markdown]
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[extra]
+default_theme = "auto"
+accent_color = "oklch(0.76 0.1 275)"
+bundled_fonts = true
+styles = ["custom.css"]
+scripts = ["interactions.js"]
+site_name = "Sangharsh Jadhav"
+source_url = "https://github.com/daidodo/duckquill"
+socials = [
+    { name = "LinkedIn", url = "https://www.linkedin.com/in/thesangha" },
+    { name = "GitHub", url = "https://github.com/THESangha" },
+    { name = "WhatsApp", url = "https://wa.me/919404214958?text=Hi%20Sangharsh" },
+]
+# Put all your custom variables hereme
+
+[extra.footer]
+show_copyright = true
+copyright = "&copy; 2026 Sangharsh Jadhav"
+show_powered_by = false
+
+[extra.nav]
+links = [
+    { name = "Blog", url = "blog" },
+    { name = "Projects", url = "projects" },
+    { name = "CV", url = "/cv.pdf" },
+    { name = "Links", menu = [
+        { name = "LinkedIn", url = "https://www.linkedin.com/in/thesangha" },
+        { name = "GitHub", url = "https://github.com/THESangha" },
+        { name = "WhatsApp", url = "https://wa.me/919404214958?text=Hi%20Sangharsh" },
+    ] },
+]

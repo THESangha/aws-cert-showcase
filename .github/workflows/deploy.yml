@@ -1,0 +1,37 @@
+name: Deploy Site
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install Zola
+        run: |
+          curl -sL https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          sudo mv zola /usr/local/bin/
+
+      - name: Build site
+        run: zola build
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::440890470649:role/github-actions-aws-cert-showcase
+          aws-region: us-east-1
+
+      - name: Sync to S3
+        run: aws s3 sync public/ s3://sangharshjadhav-aws-cert-showcase --delete
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id E1E5SZB6IX3PWZ --paths "/*"
