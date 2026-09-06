@@ -8,12 +8,9 @@
 		<a href="#main-content" tabindex="0">
 			{{ macros_translate::translate(key="skip_to_content", default="Skip to Main Content", language_strings=language_strings) }}
 		</a>
-		<ul>
+		<ul class="sliding-nav">
 			<li id="home">
-				<a href="{{ get_url(path='/', lang=lang) }}"
-					{%- if current_url | default(value="/") | trim_end_matches(pat="/") | safe == get_url(path="/", lang=lang) | trim_end_matches(pat='/') | safe -%}
-						class="active"
-					{%- endif -%}>
+				<a class="nav-link{% if current_url | default(value="/") | trim_end_matches(pat="/") | safe == get_url(path="/", lang=lang) | trim_end_matches(pat='/') | safe %} active{% endif %}" href="{{ get_url(path='/', lang=lang) }}">
 					<i class="icon"></i>
 					{{- config.title -}}
 				</a>
@@ -28,16 +25,13 @@
 								{%- for link in link.menu -%}
 									{%- if link.url is matching('https?://') %}
 										<li>
-											<a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="external">
+											<a class="nav-link external" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
 												{{- macros_translate::translate(key=link.name, default=link.name, language_strings=language_strings) -}}
 											</a>
 										</li>
 									{%- else %}
 										<li>
-											<a href="{{ get_url(path=link.url, lang=lang)}}"
-												{%- if current_url | default(value='/') | trim_end_matches(pat='/') | safe == get_url(path=link.url, lang=lang) | trim_end_matches(pat='/') | safe -%}
-													class="active"
-												{%- endif -%}>
+											<a class="nav-link{% if current_url | default(value='/') | trim_end_matches(pat='/') | safe == get_url(path=link.url, lang=lang) | trim_end_matches(pat='/') | safe %} active{% endif %}" href="{{ get_url(path=link.url, lang=lang)}}">
 												{{- macros_translate::translate(key=link.name, default=link.name, language_strings=language_strings) -}}
 											</a>
 										</li>
@@ -48,16 +42,13 @@
 			 		 </li>
 				{%- elif link.url is matching('https?://') %}
 					<li>
-						<a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="external">
+						<a class="nav-link external" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
 							{{- macros_translate::translate(key=link.name, default=link.name, language_strings=language_strings) -}}
 						</a>
 					</li>
 				{%- else %}
 					<li>
-						<a href="{{ get_url(path=link.url, lang=lang)}}"
-							{%- if current_url | default(value='/') | trim_end_matches(pat='/') | safe == get_url(path=link.url, lang=lang) | trim_end_matches(pat='/') | safe -%}
-								class="active"
-							{%- endif -%}>
+						<a class="nav-link{% if current_url | default(value='/') | trim_end_matches(pat='/') | safe == get_url(path=link.url, lang=lang) | trim_end_matches(pat='/') | safe %} active{% endif %}" href="{{ get_url(path=link.url, lang=lang)}}">
 							{{- macros_translate::translate(key=link.name, default=link.name, language_strings=language_strings) -}}
 						</a>
 					</li>
